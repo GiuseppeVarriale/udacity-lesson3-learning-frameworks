@@ -1,17 +1,19 @@
+#!/usr/bin/env python3.7
+from database_setup import Base, Restaurant, MenuItem
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 from flask import Flask
 app = Flask(__name__)
 
 
-# DB Session maker 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
+# DB Session maker
 # Create session and connect to DB
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
 
 @app.route('/')
 @app.route('/hello')
