@@ -1,29 +1,43 @@
 <html>
+    <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    </head>
     <body>
-        <h1> New Menu Item </h1>
-
-        <form action="{{url_for('newMenuItem', restaurant_id=restaurant_id )}}" method = 'POST'>
-
-            <p>Name:</p>
-
-            <input type='text' size='30' name='name' maxlength='80' required >
-
-            <p>Description:</p>
-
-            <textarea name='description' cols='30' rows='10' required></textarea>
-
-            <P>Price:</P>
-            
-            <input type='text' name='price' size='30' maxlength="8" required>
-
-            <p>Course:</p>
-            
-            <input type='text' size='30' name='course' size='30' maxlength="250" required>
-
-            <input type='submit' value='Create'>
-
-        </form>
+        <div class='pane'>
+            <div class = 'header'>
+                <h1> New Menu Item </h1>
+            </div>
         
-        <a href= "{{url_for('restaurantMenu', restaurant_id=restaurant_id)}}">Cancel</a>
+
+            <form action="{{url_for('newMenuItem', restaurant_id=restaurant_id )}}" method = 'POST'>
+
+                <p>Name:</p>
+
+                <input type='text' size='30' name='name' maxlength='80' required >
+
+                <p>Description:</p>
+
+                <textarea name='description' cols='30' rows='10' required></textarea>
+
+                <P>Price:</P>
+                
+                <input type='text' name='price' size='30' maxlength="8" required>
+
+                <p>Course:</p>
+                
+                <dd><input type ='radio' name='course' value='Appetizer' required >Appetizer</dd>
+    
+                <dd><input type ='radio' name='course' value='Entree'>Entree</dd>
+    
+                <dd><input type ='radio' name='course' value='Dessert'>Dessert</dd>
+                
+                <dd><input type ='radio' name='course' value='Beverage'>Beverage</dd>
+
+                <input type='submit' value='Create'>
+
+            </form>
+            
+            <a href= "{{url_for('restaurantMenu', restaurant_id=restaurant_id)}}">Cancel</a>
+        </div>
     </body>
 </html>
