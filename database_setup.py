@@ -39,6 +39,7 @@ class MenuItem(Base):
             'course': self.course,
         }
 
+
 engine = create_engine('sqlite:///restaurantmenu.db')
 
 
