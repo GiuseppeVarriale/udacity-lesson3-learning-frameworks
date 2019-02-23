@@ -2,7 +2,7 @@
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
 from database_setup import Base, Restaurant, MenuItem
 
 app = Flask(__name__)
