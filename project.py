@@ -44,7 +44,16 @@ def newMenuItem(restaurant_id):
 def editMenuItem(restaurant_id, menu_id):
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
-
+        if request.form['name']:
+            editedItem.name = request.form['name']
+        if request.form['price']:
+            editedItem.price = request.form['price']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        if request.form['course']:
+            editedItem.course = request.form['course']
+        session.add(editedItem)
+        session.commit()
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('editmenuitem.html',
