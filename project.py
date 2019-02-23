@@ -1,14 +1,17 @@
 #!/usr/bin/env python3.7
-from database_setup import Base, Restaurant, MenuItem
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from flask import Flask, render_template, redirect, url_for, request
+from database_setup import Base, Restaurant, MenuItem
+
 app = Flask(__name__)
 
 
 # DB Session maker
 # Create session and connect to DB
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///restaurantmenu.db',
+                       connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -27,7 +30,8 @@ def restaurantMenu(restaurant_id):
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(
-            name=request.form['name'], restaurant_id=restaurant_id)
+            name=request.form['name'], restaurant_id=restaurant_id, price=request.form['price'],
+            description=request.form['description'], course=request.form['course'])
         session.add(newItem)
         session.commit()
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
@@ -35,9 +39,16 @@ def newMenuItem(restaurant_id):
         return render_template('newMenuItem.html', restaurant_id=restaurant_id)
 
 # Task 2: Create route for editMenuItem function here
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/')
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/',
+           methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    return "page to edit a menu item. Task 2 complete!"
+    editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    if request.method == 'POST':
+
+        return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
+    else:
+        return render_template('editmenuitem.html',
+                               restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
 
 # Task 3: Create a route for deleteMenuItem function here
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/')
