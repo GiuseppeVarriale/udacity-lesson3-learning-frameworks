@@ -35,14 +35,31 @@ def itemMenuJSON(restaurant_id, menu_id):
 
 
 @app.route('/')
+@app.route('/restaurants/')
+def restaurantsList():
+    return "here is route where will be the restaurant list page"
+
+@app.route('/restaurants/new/', methods=['GET', 'POST'])
+def newRestaurant():
+    return "here is the route where will be the add new restaurant form page!"
+
+@app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+def editRestaurant(restaurant_id):
+    return "here is the route where will be the edit restaurant form page!"
+
+@app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+def deleteRestaurant(restaurant_id):
+    return "here is the route where will be the delete restaurant page!"
+
 @app.route('/restaurants/<int:restaurant_id>/')
+@app.route('/restaurants/<int:restaurant_id>/menu/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
     return render_template('menu.html', restaurant=restaurant, items=items)
 
-# Task 1: Create route for newMenuItem function here
-@app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
+
+@app.route('/restaurants/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(
@@ -59,7 +76,7 @@ def newMenuItem(restaurant_id):
     else:
         return render_template('newMenuItem.html', restaurant_id=restaurant_id)
 
-# Task 2: Create route for editMenuItem function here
+
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/',
            methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
@@ -84,7 +101,7 @@ def editMenuItem(restaurant_id, menu_id):
                                item=editedItem
                                )
 
-# Task 3: Create a route for deleteMenuItem function here
+
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/',
            methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
