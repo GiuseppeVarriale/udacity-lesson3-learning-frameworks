@@ -100,3 +100,9 @@ textarea {
 .deletebutton {
     margin-top: 50px;
 }
+
+.restaurantname {
+    color:#ffffcc;
+    font-weight: bold;
+    
+}

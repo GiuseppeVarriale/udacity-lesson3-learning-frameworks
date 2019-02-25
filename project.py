@@ -37,19 +37,24 @@ def itemMenuJSON(restaurant_id, menu_id):
 @app.route('/')
 @app.route('/restaurants/')
 def restaurantsList():
-    return "here is route where will be the restaurant list page"
+    restaurants = session.query(Restaurant).all()
+    return render_template('restaurantsList.html', restaurants=restaurants)
+
 
 @app.route('/restaurants/new/', methods=['GET', 'POST'])
 def newRestaurant():
     return "here is the route where will be the add new restaurant form page!"
 
+
 @app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     return "here is the route where will be the edit restaurant form page!"
 
+
 @app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     return "here is the route where will be the delete restaurant page!"
+
 
 @app.route('/restaurants/<int:restaurant_id>/')
 @app.route('/restaurants/<int:restaurant_id>/menu/')
