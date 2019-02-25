@@ -2,7 +2,8 @@
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from flask import Flask, render_template, redirect, url_for, request, flash, jsonify
+from flask import Flask, render_template, redirect, url_for, request, flash,\
+    jsonify
 from database_setup import Base, Restaurant, MenuItem
 
 app = Flask(__name__)
@@ -45,8 +46,12 @@ def restaurantMenu(restaurant_id):
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(
-            name=request.form['name'], restaurant_id=restaurant_id, price=request.form['price'],
-            description=request.form['description'], course=request.form['course'])
+            name=request.form['name'],
+            restaurant_id=restaurant_id,
+            price=request.form['price'],
+            description=request.form['description'],
+            course=request.form['course']
+        )
         session.add(newItem)
         session.commit()
         flash("new menu item created!")
@@ -74,10 +79,14 @@ def editMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('editmenuitem.html',
-                               restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
+                               restaurant_id=restaurant_id,
+                               menu_id=menu_id,
+                               item=editedItem
+                               )
 
 # Task 3: Create a route for deleteMenuItem function here
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/',
+           methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     menuToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
@@ -88,7 +97,8 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deleteMenuItem.html',
-                               restaurant_id=restaurant_id, item=menuToDelete,
+                               restaurant_id=restaurant_id,
+                               item=menuToDelete,
                                restaurant=restaurant)
 
 
