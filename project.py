@@ -57,9 +57,9 @@ def newRestaurant():
 def editRestaurant(restaurant_id):
     editedRestaurant = session.query(Restaurant).filter_by(
         id=restaurant_id).one()
-    oldRestaurantName = editedRestaurant.name
     if request.method == 'POST':
         if request.form['name']:
+            oldRestaurantName = editedRestaurant.name
             editedRestaurant.name = request.form['name']
         session.add(editedRestaurant)
         session.commit()
@@ -73,7 +73,16 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
-    return "here is the route where will be the delete restaurant page!"
+    restaurantToDelete = session.query(Restaurant).filter_by(
+        id=restaurant_id).one()
+    if request.method == 'POST':
+        session.delete(restaurantToDelete)
+        session.commit()
+        flash(F"Restaurant {restaurantToDelete.name} was deleted!")
+        return redirect(url_for('restaurantsList'))
+    else:
+        return render_template('deleteRestaurant.html',
+                               restaurant=restaurantToDelete)
 
 
 @app.route('/restaurants/<int:restaurant_id>/')
