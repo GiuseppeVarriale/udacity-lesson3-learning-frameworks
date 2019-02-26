@@ -27,15 +27,15 @@
                 {% for restaurant in restaurants %}
             <div class = 'restaurant'>
                 <span class = 'restaurantname'>
-                  <a class = 'restaurantname' href='{{url_for('restaurantMenu', restaurant_id= restaurant.id)}}'>{{restaurant.name}}</a>
+                  <a class = 'restaurantname' href="{{url_for('showMenu', restaurant_id= restaurant.id)}}">{{restaurant.name}}</a>
                 </span>
                 
             </div>
 
             <div class = "editdeletepane">
 
-                <a href='{{url_for('editRestaurant', restaurant_id = restaurant.id)}}' >Edit</a>
-                <a href='{{url_for('deleteRestaurant', restaurant_id = restaurant.id)}}' >Delete</a>
+                <a href="{{url_for('editRestaurant', restaurant_id = restaurant.id)}}" >Edit</a>
+                <a href="{{url_for('deleteRestaurant', restaurant_id = restaurant.id)}}" >Delete</a>
             </div>
             
             {% endfor %}
