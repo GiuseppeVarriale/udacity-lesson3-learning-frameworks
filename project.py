@@ -18,7 +18,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# Making an API Endpoint (Get Request)
+
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()

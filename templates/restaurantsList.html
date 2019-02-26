@@ -27,7 +27,7 @@
                 {% for restaurant in restaurants %}
             <div class = 'restaurant'>
                 <span class = 'restaurantname'>
-                    <p>{{restaurant.name}}</p>
+                  <a class = 'restaurantname' href='{{url_for('restaurantMenu', restaurant_id= restaurant.id)}}'>{{restaurant.name}}</a>
                 </span>
                 
             </div>
