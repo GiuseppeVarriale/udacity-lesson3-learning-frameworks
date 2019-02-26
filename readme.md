@@ -2,7 +2,7 @@
 
 ## Overview
 
-This are the exercises to learn delveloping with frameworks on Back-end developer Udacity nanodegree
+This was made to start learn delveloping with frameworks on Back-end developer Udacity nanodegree
 In this exercises, i made a web app to list names of restaurants and the specific menu from each restaurant
 using a real database and tables
 
@@ -28,6 +28,14 @@ If **not** Download or Clone [**this repository**](https://github.com/udacity/fu
 3. Change directory to /vagrant and look around with ls.
 
 4. Copy the content downloaded before from my Repository and paste in this folder!
+
+## Setting up database
+
+1. In the virtual machine run the database_setup.py
+      >`$ python3 database_setup.py`
+
+2. Populate the database running lotofmenus.py
+      >`$ python3 lotofmenus.py`
 
 ## Running the the program
 
